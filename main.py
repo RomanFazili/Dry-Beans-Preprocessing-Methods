@@ -12,7 +12,8 @@ from imblearn.pipeline import Pipeline as ImbPipeline
 from imblearn.over_sampling import BorderlineSMOTE as BLSMOTE
 
 from dataset import Dataset
-from gridsearch_analyzer import GridSearchAnalyzer, ZScoreCapper
+from gridsearch_analyzer import GridSearchAnalyzer
+from zscore_capper import ZScoreCapper
 
 SEED = 42
 

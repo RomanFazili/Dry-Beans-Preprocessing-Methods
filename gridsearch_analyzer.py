@@ -1,8 +1,6 @@
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, Optional, Any
 import numpy as np
 import matplotlib.pyplot as plt
-import json
-import os
 import pandas as pd
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import (
@@ -10,36 +8,9 @@ from sklearn.metrics import (
     confusion_matrix, roc_auc_score, average_precision_score, roc_curve, auc
 )
 from sklearn.model_selection import GridSearchCV
-from sklearn.base import BaseEstimator, TransformerMixin
 import seaborn as sns
 from sklearn.model_selection import StratifiedKFold
-
-# Custom Z-Score Capping Transformer
-class ZScoreCapper(BaseEstimator, TransformerMixin):
-    def __init__(self, threshold: float = 3.0) -> None:
-        self.threshold = threshold
-        self.means_: Optional[np.ndarray] = None
-        self.stds_: Optional[np.ndarray] = None
-        
-    def fit(self, X: np.ndarray, y: Optional[np.ndarray] = None) -> 'ZScoreCapper':
-        self.means_ = np.mean(X, axis=0)
-        self.stds_ = np.std(X, axis=0, ddof=0)
-        return self
-    
-    def transform(self, X: np.ndarray) -> np.ndarray:
-        if self.means_ is None or self.stds_ is None:
-            raise ValueError("ZScoreCapper must be fitted before transform")
-        
-        # Calculate z-scores
-        z_scores = (X - self.means_) / self.stds_
-        
-        # Cap z-scores at threshold
-        z_scores_capped = np.clip(z_scores, -self.threshold, self.threshold)
-        
-        # Convert back to original scale
-        X_capped = (z_scores_capped * self.stds_) + self.means_
-        
-        return X_capped
+from zscore_capper import ZScoreCapper
 
 
 class GridSearchAnalyzer:
