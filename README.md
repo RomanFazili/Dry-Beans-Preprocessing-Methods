@@ -12,10 +12,10 @@ For performance measuring we used accuracy and F1 score. As output, the code giv
 
 ```
 ├── Dry_Bean_Dataset.xlsx      # Original dataset
+└── README.md                  # This file
 ├── dataset.py                 # Dataset loading and feature engineering
 ├── gridsearch_analyzer.py     # Comprehensive model evaluation and visualization
 ├── main.py                    # Main execution script
-└── README.md                  # This file
 └── zscore_capper.py           # Custom transformation class to cap Z-Scores
 ```
 
